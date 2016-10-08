@@ -19,22 +19,9 @@
 void setup_input_devices (GromitData *data)
 {
   /*
-     first, check platform
+     we run fine under XWayland, but not native Wayland
   */
-  gchar *backend;
-  g_printerr("Supported backends: ");
-#ifdef GDK_WINDOWING_X11
-  g_printerr("x11 ");
-  if (GDK_IS_X11_DISPLAY(data->display))
-    backend = "x11";
-#endif
-#ifdef GDK_WINDOWING_WAYLAND
-  g_printerr("wayland ");
-  if (GDK_IS_WAYLAND_DISPLAY(data->display))
-    backend = "wayland";
-#endif
-  g_printerr("\nUsing backend: %s\n", backend);
-
+  gdk_set_allowed_backends ("x11");
 
   /* ungrab all */
   release_grab (data, NULL); 
